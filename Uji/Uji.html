@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Faktorial & Perpangkatan</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <div class="dashboard">
+    <h2>Dashboard</h2>
+    <div class="history">
+      <h3>History</h3>
+      <table>
+        <thead>
+          <tr>
+            <p>Tanggal/Waktu: <span id="tanggalwaktu"></span></p>
+<script>
+var tw = new Date();
+if (tw.getTimezoneOffset() == 0) (a=tw.getTime() + ( 7 *60*60*1000))
+else (a=tw.getTime());
+tw.setTime(a);
+var tahun= tw.getFullYear ();
+var hari= tw.getDay ();
+var bulan= tw.getMonth ();
+var tanggal= tw.getDate ();
+var hariarray=new Array("Minggu,","Senin,","Selasa,","Rabu,","Kamis,","Jum'at,","Sabtu,");
+var bulanarray=new Array("Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","Nopember","Desember");
+document.getElementById("tanggalwaktu").innerHTML = hariarray[hari]+" "+tanggal+" "+bulanarray[bulan]+" "+tahun+" Jam " + ((tw.getHours() < 10) ? "0" : "") + tw.getHours() + ":" + ((tw.getMinutes() < 10)? "0" : "") + tw.getMinutes() + (" W.I.B ");
+</script>
+            <th>Jenis Perhitungan</th>
+            <th>Angka/Pangkat</th>
+            <th>Hasil</th>
+          </tr>
+        </thead>
+        <tbody id="historyTableBody">
+        </tbody>
+      </table>
+    </div>
+    <div class="stats">
+      <h3>Statistik</h3>
+      <ul>
+        <li>Total Perhitungan: <span id="totalCalculations"></span></li>
+        <li>Total Faktorial: <span id="totalFactorials"></span></li>
+        <li>Total Perpangkatan: <span id="totalPowers"></span></li>
+      </ul>
+    </div>
+  </div>
+</head>
+
+<head>
+	<title>Kalkulator Faktorial dan Perpangkatan</title>
+	<style>
+		form {
+			margin-top: 50px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		input[type="number"] {
+			width: 100px;
+			padding: 5px;
+			margin: 10px;
+		}
+
+		input[type="submit"] {
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.result {
+			margin-top: 50px;
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<form>
+		<label for="factorial-input">Masukkan bilangan untuk faktorial:</label>
+		<input type="number" id="factorial-input" min="0">
+		<input type="button" value="Hitung" onclick="calculateFactorial()">
+	</form>
+
+	<div class="result" id="factorial-result"></div>
+
+	<form>
+		<label for="power-base">Masukkan bilangan dasar:</label>
+		<input type="number" id="power-base" min="0">
+		<label for="power-exponent">Masukkan bilangan eksponen:</label>
+		<input type="number" id="power-exponent" min="0">
+		<input type="button" value="Hitung" onclick="calculatePower()">
+	</form>
+
+	<div class="result" id="power-result"></div>
+
+
+    <button onclick="printOutput()">Cetak Output ke File Txt</button>
+
+	<script>
+		function calculateFactorial() {
+			const input = document.getElementById('factorial-input').value;
+			const result = document.getElementById('factorial-result');
+			if (input < 0) {
+				result.innerText = 'Bilangan harus bernilai positif';
+			} else {
+				const factorial = calculateRecursiveFactorial(input);
+				result.innerText = `Hasil faktorial dari ${input} adalah ${factorial}`;
+			}
+		}
+
+		function calculateRecursiveFactorial(n) {
+			if (n === 0 || n === 1) {
+				return 1;
+			} else {
+				return n * calculateRecursiveFactorial(n - 1);
+			}
+		}
+
+		function calculatePower() {
+			const base = document.getElementById('power-base').value;
+			const exponent = document.getElementById('power-exponent').value;
+			const result = document.getElementById('power-result');
+			const power = Math.pow(base, exponent);
+			result.innerText = `${base} pangkat ${exponent} adalah ${power}`;
+		}
+        function downloadTxtFile(content) {
+  const element = document.createElement("a");
+  const file = new Blob([content], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = "output.txt";
+  document.body.appendChild(element); // Required for this to work in FireFox
+  element.click();
+}
+
+function printOutput() {
+  const factorialResult = document.getElementById("factorial-result").innerText;
+  const powerResult = document.getElementById("power-result").innerText;
+  const output = `${factorialResult}\n${powerResult}`;
+  downloadTxtFile(output);
+}
+
+	</script>
+</body>
+
+
+  <div class="container">
+      <table border="1" cellspacing="0">
+          <tr>
+              <td colspan="4" id="inputLabel">0</td>
+          </tr>
+          <tr>
+              <td colspan="3"><button onclick="pushBtn(this);">AC</button></td>
+              <td><button onclick="pushBtn(this);">/</button></td>
+          </tr>
+          <tr>
+              <td><button onclick="pushBtn(this);">7</button></td>
+              <td><button onclick="pushBtn(this);">8</button></td>
+              <td><button onclick="pushBtn(this);">9</button></td>
+              <td><button onclick="pushBtn(this);">*</button></td>
+          </tr>
+          <tr>
+              <td><button onclick="pushBtn(this);">4</button></td>
+              <td><button onclick="pushBtn(this);">5</button></td>
+              <td><button onclick="pushBtn(this);">6</button></td>
+              <td><button onclick="pushBtn(this);">-</button></td>
+          </tr>
+          <tr>
+              <td><button onclick="pushBtn(this);">1</button></td>
+              <td><button onclick="pushBtn(this);">2</button></td>
+              <td><button onclick="pushBtn(this);">3</button></td>
+              <td><button onclick="pushBtn(this);">+</button></td>
+          </tr>
+          <tr>
+              <td colspan="2"><button onclick="pushBtn(this);">0</button></td>
+              <td><button onclick="pushBtn(this);">.</button></td>
+              <td><button onclick="pushBtn(this);">=</button></td>
+          </tr>
+      </table>
+  </div>
+   
+  
+  <script>
+      var inputLabel = document.getElementById('inputLabel');
+       
+      function pushBtn(obj) {
+           
+          var pushed = obj.innerHTML;
+           
+          if (pushed == '=') {
+              // Calculate
+              inputLabel.innerHTML = eval(inputLabel.innerHTML);
+               
+          } else if (pushed == 'AC') {
+              // All Clear
+              inputLabel.innerHTML = '0';
+               
+          } else {
+              if (inputLabel.innerHTML == '0') {
+                  inputLabel.innerHTML = pushed;
+                   
+              } else {
+                  inputLabel.innerHTML += pushed;   
+              }
+          }
+      }
+  </script>
+
+</html>
